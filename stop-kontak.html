@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stop Kontak - Innobyte</title>
+    <style>
+/* RESET & GENERAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: #f8f9fa;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* NAVBAR */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 1rem 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo span {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.nav-menu a:hover {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+/* BREADCRUMB */
+.breadcrumb {
+    padding: 100px 0 20px;
+    font-size: 0.95rem;
+}
+
+.breadcrumb a {
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb a:hover {
+    color: #764ba2;
+}
+
+.breadcrumb span {
+    color: #888;
+}
+
+/* PRODUCT DETAIL SECTION */
+.product-detail {
+    padding: 20px 20px 80px;
+    background: white;
+}
+
+.product-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    margin-top: 2rem;
+}
+
+/* PRODUCT GALLERY */
+.product-gallery {
+    position: relative;
+}
+
+.main-image {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    border-radius: 20px;
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+    overflow: hidden;
+}
+
+.image-placeholder {
+    font-size: 10rem;
+}
+
+.product-badge-detail {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: #764ba2;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* PRODUCT DETAILS */
+.product-details {
+    padding: 1rem 0;
+}
+
+.product-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 800;
+}
+
+.product-variant {
+    color: #888;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.product-price-box {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+}
+
+.price-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+}
+
+.product-features,
+.product-description,
+.product-specs,
+.order-section {
+    margin-bottom: 2.5rem;
+}
+
+.product-features h3,
+.product-description h3,
+.product-specs h3,
+.order-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.product-features ul {
+    list-style: none;
+    padding: 0;
+}
+
+.product-features li {
+    padding: 0.8rem 0;
+    font-size: 1.05rem;
+    color: #555;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.product-features li:last-child {
+    border-bottom: none;
+}
+
+.product-description p {
+    margin-bottom: 1rem;
+    color: #555;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* SPECS TABLE */
+.product-specs table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.product-specs td {
+    padding: 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem;
+}
+
+.product-specs td:first-child {
+    font-weight: 600;
+    color: #667eea;
+    width: 40%;
+}
+
+.product-specs td:last-child {
+    color: #555;
+}
+
+/* ORDER STEPS */
+.order-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.step:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.step-number {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.step p {
+    margin: 0;
+    color: #555;
+    font-size: 1rem;
+}
+
+/* CTA BUTTONS */
+.cta-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.btn-whatsapp {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+    color: white;
+    padding: 1.3rem 2rem;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
+}
+
+.btn-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
+}
+
+.wa-icon {
+    font-size: 1.8rem;
+}
+
+.btn-back {
+    display: block;
+    text-align: center;
+    background: white;
+    color: #667eea;
+    padding: 1rem;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    border: 2px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* TRUST BADGES */
+.trust-badges {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.badge {
+    background: #e7f3ff;
+    color: #667eea;
+    padding: 0.7rem 1.2rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* RELATED PRODUCTS */
+.related-products {
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.product-grid-small {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.mini-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.mini-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+}
+
+.mini-image {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.mini-card h4 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.mini-card p {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #764ba2;
+    margin-bottom: 1rem;
+}
+
+.mini-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.mini-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* FOOTER */
+.footer {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 20px;
+    text-align: center;
+}
+
+.footer p {
+    margin: 0.5rem 0;
+}
+
+.footer-tagline {
+    font-style: italic;
+    opacity: 0.9;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 968px) {
+    .product-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .main-image {
+        height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .product-title {
+        font-size: 2rem;
+    }
+    
+    .price {
+        font-size: 2rem;
+    }
+    
+    .main-image {
+        height: 350px;
+    }
+    
+    .image-placeholder {
+        font-size: 7rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb {
+        padding: 90px 0 20px;
+        font-size: 0.85rem;
+    }
+    
+    .product-title {
+        font-size: 1.8rem;
+    }
+    
+    .price {
+        font-size: 1.8rem;
+    }
+    
+    .btn-whatsapp {
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+    }
+    
+    .main-image {
+        height: 300px;
+    }
+    
+    .image-placeholder {
+        font-size: 5rem;
+    }
+    
+    .product-specs td {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+    
+    .step {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- HEADER / NAVBAR -->
+    <header class="navbar">
+        <div class="container">
+            <div class="logo">
+               <span>INNOBYTE</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">Kembali ke Beranda</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PRODUCT DETAIL SECTION -->
+    <section class="product-detail">
+        <div class="container">
+            <div class="breadcrumb">
+                <a href="index.html">Beranda</a> / <a href="index.html#produk">Produk</a> / <span>Stop Kontak</span>
+            </div>
+
+            <div class="product-layout">
+                <!-- PRODUCT IMAGE -->
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="img/stop-kontak.png" alt="Stop kontak">
+                    </div>
+                    <div class="product-badge-detail">Digital</div>
+                </div>
+
+                <!-- PRODUCT INFO -->
+                <div class="product-details">
+                    <h1 class="product-title">Stop Kontak</h1>
+                    <p class="product-variant">Elektronik</p>
+                    
+                    <div class="product-price-box">
+                        <span class="price">Rp27.000</span>
+                        <span class="price-label">Harga Terbaik</span>
+                    </div>
+
+                    <div class="product-features">
+                        <h3>✨ Keunggulan Produk</h3>
+                        <ul>
+                            <li>✓ Harga murah dan terjangkau</li>
+                            <li>✓ Kualitas handal dan tahan lama</li>
+                            <li>✓ Material berkualitas tinggi</li>
+                            <li>✓ Aman untuk penggunaan harian</li>
+                            <li>✓ Desain praktis dan kompak</li>
+                        </ul>
+                    </div>
+
+                    <div class="product-description">
+                        <h3>📝 Deskripsi Produk</h3>
+                        <p>
+                            Stop Kontak berkualitas dengan harga terjangkau. Produk ini dirancang untuk 
+                            memenuhi kebutuhan listrik rumah tangga Anda dengan aman dan handal.
+                        </p>
+                        <p>
+                            Dengan material berkualitas dan desain yang praktis, stop kontak ini cocok 
+                            untuk berbagai kebutuhan seperti di kamar, ruang tamu, dapur, atau kantor. 
+                            Investasi kecil untuk kenyamanan dan keamanan jangka panjang!
+                        </p>
+                    </div>
+
+                    <div class="product-specs">
+                        <h3>📦 Spesifikasi</h3>
+                        <table>
+                            <tr>
+                                <td>Material</td>
+                                <td>Plastik ABS berkualitas tinggi</td>
+                            </tr>
+                            <tr>
+                                <td>Voltase</td>
+                                <td>220V</td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Lubang</td>
+                                <td>Sesuai varian</td>
+                            </tr>
+                            <tr>
+                                <td>Sertifikasi</td>
+                                <td>SNI (Standar Nasional Indonesia)</td>
+                            </tr>
+                            <tr>
+                                <td>Garansi</td>
+                                <td>7 hari (kerusakan pabrik)</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="order-section">
+                        <h3>🛒 Cara Pemesanan</h3>
+                        <div class="order-steps">
+                            <div class="step">
+                                <span class="step-number">1</span>
+                                <p>Klik tombol "Pesan Sekarang via WhatsApp"</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">2</span>
+                                <p>Anda akan diarahkan ke WhatsApp kami</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">3</span>
+                                <p>Konfirmasi pesanan: nama, alamat, dan jumlah</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">4</span>
+                                <p>Lakukan pembayaran sesuai instruksi</p>
+                            </div>
+                            <div class="step">
+                                <span class="step-number">5</span>
+                                <p>Pesanan akan diproses dan dikirim ke alamat Anda</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WHATSAPP BUTTON -->
+                    <div class="cta-buttons">
+                        <a href="https://wa.me/6283149721207?text=Halo%20Innobyte,%20saya%20ingin%20memesan%20*Stop%20Kontak*%20(Rp27.000).%0A%0ANama:%20%0AAlamat:%20%0AJumlah:%20" 
+                           class="btn-whatsapp" 
+                           target="_blank">
+                            <span class="wa-icon">📱</span>
+                            Pesan Sekarang via WhatsApp
+                        </a>
+                        <a href="index.html#produk" class="btn-back">
+                            ← Lihat Produk Lainnya
+                        </a>
+                    </div>
+
+                    <div class="trust-badges">
+                        <div class="badge">✓ Produk Original</div>
+                        <div class="badge">✓ Gratis Konsultasi</div>
+                        <div class="badge">✓ Pengiriman Cepat</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Innobyte. All Rights Reserved.</p>
+            <p class="footer-tagline">Dunia Lebih Hidup dengan Inovasi.</p>
+        </div>
+    </footer>
+</body>
+</html>
